@@ -5,44 +5,33 @@ import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 import { ToastProvider } from "./ToastContext";
+import { SessionProvider, useSession, signOut } from "next-auth/react";
 
-export function AdminClientShell({ children }: { children: React.ReactNode }) {
+function ShellInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { data: session, status } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const isLoginPage = pathname === "/admin/login";
+  const isLoginPage = pathname === "/admin/login" || pathname === "/admin/signup";
+  const isLoading = status === "loading";
+  const isAuthenticated = status === "authenticated";
 
   useEffect(() => {
-    // Check mock auth in localStorage
-    const authStatus = localStorage.getItem("admin_auth");
-    if (authStatus === "true") {
-      setIsAuthenticated(true);
-      if (isLoginPage) {
-        // Redirect away from login if already authed
+    if (!isLoading) {
+      if (isAuthenticated && isLoginPage) {
         router.push("/admin");
-      }
-    } else {
-      setIsAuthenticated(false);
-      if (!isLoginPage) {
-        // Redirect to login if trying to access dashboard
+      } else if (!isAuthenticated && !isLoginPage) {
         router.push("/admin/login");
       }
     }
-    setIsAuthChecking(false);
-  }, [pathname, isLoginPage, router]);
+  }, [isLoading, isAuthenticated, isLoginPage, router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("admin_auth");
-    setIsAuthenticated(false);
-    router.push("/admin/login");
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/admin/login" });
   };
 
-  // Prevent flash of content while checking auth on client side
-  if (isAuthChecking) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-4 border-primary-200 border-t-primary-600 animate-spin" />
@@ -50,15 +39,12 @@ export function AdminClientShell({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // Render just the page content if it's the login page
   if (isLoginPage) {
     return <>{children}</>;
   }
 
-  // Render the full dashboard shell
-  if (!isAuthenticated) return null; // Will redirect via useEffect
+  if (!isAuthenticated) return null;
 
-  // Generate a page title based on the pathname
   const lastSegment = pathname.split("/").pop() || "";
   const pageTitle = pathname === "/admin" 
     ? "Dashboard" 
@@ -87,5 +73,13 @@ export function AdminClientShell({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </ToastProvider>
+  );
+}
+
+export function AdminClientShell({ children }: { children: React.ReactNode }) {
+  return (
+    <SessionProvider>
+      <ShellInner>{children}</ShellInner>
+    </SessionProvider>
   );
 }

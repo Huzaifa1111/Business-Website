@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 
+import { signIn } from "next-auth/react";
+
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -22,12 +24,19 @@ export default function AdminLoginPage() {
 
     setIsLoading(true);
     
-    // Simulate network delay for mock auth
-    await new Promise((r) => setTimeout(r, 1000));
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
     
-    // Accept any credentials for now in this mock version
-    localStorage.setItem("admin_auth", "true");
-    router.push("/admin");
+    setIsLoading(false);
+
+    if (res?.error) {
+      setError("Invalid email or password.");
+    } else {
+      router.push("/admin");
+    }
   };
 
   return (
@@ -136,6 +145,10 @@ export default function AdminLoginPage() {
           >
             {isLoading ? "Signing in..." : "Sign In"}
           </Button>
+
+          <p className="text-center text-sm text-neutral-500 mt-2">
+            Don't have an account? <button type="button" onClick={() => router.push("/admin/signup")} className="text-primary-600 font-semibold hover:underline">Sign up</button>
+          </p>
         </form>
       </div>
     </div>

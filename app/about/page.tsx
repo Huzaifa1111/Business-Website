@@ -8,6 +8,8 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSEO("about");
   if (!seo) return { title: "About Us" };
@@ -36,9 +38,9 @@ export default async function AboutPage() {
     <>
       {/* ── Page Hero ── */}
       <PageHero
-        eyebrow="Our Story"
-        heading="Building Businesses That Last, Since 2009"
-        subheading="We started as three people with a better idea about what great consulting should look like. Fifteen years later, we're still guided by the same principles."
+        eyebrow={about.hero.eyebrow}
+        heading={about.hero.heading}
+        subheading={about.hero.subheading}
         badge={`Founded ${overview.foundedYear}`}
       />
 

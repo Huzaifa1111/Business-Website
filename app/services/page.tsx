@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getServices } from "@/lib/api/services";
+import { getServices, getServicesPageContent } from "@/lib/api/services";
 import { getSEO } from "@/lib/api/seo";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/Badge";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSEO("services");
@@ -29,15 +31,20 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicesPage() {
-  const services = await getServices(); // already sorted by order
+  const [services, pageContent] = await Promise.all([
+    getServices(),
+    getServicesPageContent(),
+  ]);
+
+  const { hero, process, cta } = pageContent;
 
   return (
     <>
       {/* ── Page Hero ── */}
       <PageHero
-        eyebrow="What We Do"
-        heading="Six Practice Areas. One Trusted Partner."
-        subheading="We cover every dimension of business performance — so you never have to stitch together advice from multiple firms with competing agendas."
+        eyebrow={hero.eyebrow}
+        heading={hero.heading}
+        subheading={hero.subheading}
       />
 
       {/* ── Services Grid ── */}
@@ -181,35 +188,14 @@ export default async function ServicesPage() {
           <Reveal>
             <SectionHeading
               id="process-heading"
-              eyebrow="How We Work"
-              heading="Our Engagement Model"
-              subheading="A structured, transparent process from first call to final delivery — so you always know what to expect."
+              eyebrow={process.eyebrow}
+              heading={process.heading}
+              subheading={process.subheading}
             />
           </Reveal>
 
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                step: "01",
-                title: "Discovery Call",
-                desc: "A 30-minute conversation to understand your priorities and assess fit — no cost, no obligation.",
-              },
-              {
-                step: "02",
-                title: "Scoping & Proposal",
-                desc: "We define a clear scope of work with milestones, deliverables, timelines, and transparent pricing.",
-              },
-              {
-                step: "03",
-                title: "Execution",
-                desc: "Our team embeds with yours, working in focused sprints with regular check-ins and progress updates.",
-              },
-              {
-                step: "04",
-                title: "Handover & Review",
-                desc: "We transfer ownership completely — documentation, training, and a 90-day follow-up included.",
-              },
-            ].map(({ step, title, desc }, i) => (
+            {process.steps.map(({ step, title, description }, i) => (
               <Reveal key={step} delay={i * 70} direction="up">
                 <div className="relative flex flex-col gap-3 p-6 bg-white rounded-2xl border border-neutral-200 shadow-card hover:shadow-hover hover:border-primary-200 transition-all duration-300 card-hover">
                   <span
@@ -225,7 +211,7 @@ export default async function ServicesPage() {
                   >
                     {title}
                   </h3>
-                  <p className="text-neutral-500 text-sm leading-relaxed">{desc}</p>
+                  <p className="text-neutral-500 text-sm leading-relaxed">{description}</p>
                 </div>
               </Reveal>
             ))}
@@ -244,17 +230,17 @@ export default async function ServicesPage() {
               className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Not sure which service fits your needs?
+              {cta.heading}
             </h2>
             <p className="text-neutral-500 mb-7 max-w-xl mx-auto">
-              Tell us about your challenge and we&apos;ll recommend the right engagement model for your situation.
+              {cta.subheading}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button href="/contact" size="lg">
-                Talk to a Consultant
+              <Button href={cta.primaryButtonLink} size="lg">
+                {cta.primaryButtonText}
               </Button>
-              <Button href="/about" variant="outline" size="lg">
-                Learn About Us
+              <Button href={cta.secondaryButtonLink} variant="outline" size="lg">
+                {cta.secondaryButtonText}
               </Button>
             </div>
           </Reveal>

@@ -116,11 +116,21 @@ export function ContactForm() {
       document.getElementById(map[firstKey])?.focus();
       return;
     }
-
     setFormState("loading");
-    // Simulate async submission (1.5 s)
-    await new Promise((r) => setTimeout(r, 1500));
-    setFormState("success");
+    try {
+      const response = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) throw new Error("Failed to send message");
+
+      setFormState("success");
+    } catch (error) {
+      console.error(error);
+      setFormState("error");
+    }
   };
 
   const handleReset = () => {

@@ -1,30 +1,75 @@
 "use client";
 
-import { useState } from "react";
-import { homeData } from "@/lib/dummy-data/home";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
 import { SectionCard, FormGroup, Input, Textarea, Toggle } from "@/components/admin/AdminForms";
 import { useToast } from "@/components/admin/ToastContext";
+import type { HomeContent } from "@/lib/types";
 
 export default function HomeManagementPage() {
-  const [data, setData] = useState(homeData);
+  const [data, setData] = useState<HomeContent | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { showToast } = useToast();
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/pages/home");
+        if (res.ok) {
+          const json = await res.json();
+          setData(json);
+        } else {
+          showToast("Failed to load home page content.");
+        }
+      } catch (error) {
+        showToast("Error loading home page content.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
   const handleSave = async () => {
+    if (!data) return;
     setIsSaving(true);
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 800));
-    setIsSaving(false);
-    showToast("Home page content updated successfully");
+    try {
+      const res = await fetch("/api/pages/home", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        showToast("Home page content updated successfully");
+      } else {
+        showToast("Failed to save changes.");
+      }
+    } catch (error) {
+      showToast("Error saving changes.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const updateSection = (section: keyof typeof data, field: string, value: any) => {
-    setData((prev) => ({
-      ...prev,
-      [section]: { ...prev[section], [field]: value },
-    }));
+  const updateSection = (section: keyof HomeContent, field: string, value: any) => {
+    if (!data) return;
+    setData((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        [section]: { ...(prev[section] as any), [field]: value },
+      };
+    });
   };
+
+  if (isLoading) {
+    return <div className="p-8 text-neutral-500">Loading content...</div>;
+  }
+
+  if (!data) {
+    return <div className="p-8 text-red-500">Failed to load content. Please make sure the database is seeded.</div>;
+  }
 
   return (
     <div className="flex flex-col gap-6 max-w-4xl">

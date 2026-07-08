@@ -130,7 +130,14 @@ export interface TeamMember {
   email?: string;
 }
 
+export interface AboutHeroSection {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+}
+
 export interface AboutContent {
+  hero: AboutHeroSection;
   overview: OverviewSection;
   mission: MissionSection;
   vision: VisionSection;
@@ -152,6 +159,40 @@ export interface Service {
   ctaLink?: string;
   order: number;
   isFeatured?: boolean;
+}
+
+export interface ServicesHeroSection {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+}
+
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export interface ServicesProcessSection {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+  steps: ProcessStep[];
+}
+
+export interface ServicesCtaSection {
+  heading: string;
+  subheading: string;
+  primaryButtonText: string;
+  primaryButtonLink: string;
+  secondaryButtonText: string;
+  secondaryButtonLink: string;
+}
+
+export interface ServicesPageContent {
+  hero: ServicesHeroSection;
+  process: ServicesProcessSection;
+  cta: ServicesCtaSection;
 }
 
 // ─────────────────────────────────────────────
@@ -176,7 +217,20 @@ export interface SocialLinks {
   youtube?: string;
 }
 
+export interface ContactHeroSection {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+}
+
+export interface ContactFormSection {
+  heading: string;
+  subheading: string;
+}
+
 export interface ContactInfo {
+  hero: ContactHeroSection;
+  form: ContactFormSection;
   address: {
     street: string;
     city: string;

@@ -9,6 +9,8 @@ import { WhyChooseUsSection } from "./_sections/WhyChooseUsSection";
 import { TestimonialsSection } from "./_sections/TestimonialsSection";
 import { CtaBand } from "./_sections/CtaBand";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSEO("home");
   if (!seo) return { title: "Apex Consulting Group" };

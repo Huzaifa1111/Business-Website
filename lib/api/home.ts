@@ -6,13 +6,24 @@
 
 import type { HomeContent } from "@/lib/types";
 import { homeData } from "@/lib/dummy-data/home";
+import dbConnect from "@/lib/mongodb";
+import { Home } from "@/lib/models/Home";
 
-/**
- * Fetches all home page content sections.
- * In production this will call the CMS / REST / GraphQL API.
- */
 export async function getHomeContent(): Promise<HomeContent> {
-  // Simulate async network latency in development
-  await new Promise((r) => setTimeout(r, 1000));
+  try {
+    await dbConnect();
+    const content = await Home.findOne().lean();
+    
+    if (content) {
+      // Need to stringify/parse to remove Mongoose ObjectIDs 
+      // which can cause issues with Next.js Server Components passing data to Client Components
+      const safeContent = JSON.parse(JSON.stringify(content));
+      return safeContent as HomeContent;
+    }
+  } catch (error) {
+    console.error("Failed to fetch home content from DB:", error);
+  }
+
+  // Fallback if DB query fails or is empty (e.g. before initial seeding)
   return homeData;
 }

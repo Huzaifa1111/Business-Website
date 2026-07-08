@@ -6,6 +6,8 @@ import { PageHero } from "@/components/ui/PageHero";
 import { ContactForm } from "@/components/ui/ContactForm";
 import { Reveal } from "@/components/ui/Reveal";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSEO("contact");
   if (!seo) return { title: "Contact Us" };
@@ -71,16 +73,16 @@ const dayLabels: Record<string, string> = {
 
 export default async function ContactPage() {
   const contact = await getContactInfo();
-  const { address, phones, email, businessHours, mapEmbedUrl, socialLinks } =
+  const { hero, form, address, phones, email, businessHours, mapEmbedUrl, socialLinks } =
     contact;
 
   return (
     <>
       {/* ── Page Hero ── */}
       <PageHero
-        eyebrow="Get In Touch"
-        heading="Let's Start the Conversation"
-        subheading="No sales pitch — just an honest discussion about your business. Our team responds within 24 hours."
+        eyebrow={hero.eyebrow}
+        heading={hero.heading}
+        subheading={hero.subheading}
       />
 
       {/* ── Main contact layout ── */}
@@ -240,10 +242,10 @@ export default async function ContactPage() {
                   className="text-2xl font-bold text-neutral-900 mb-2"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
-                  Send us a message
+                  {form.heading}
                 </h2>
                 <p className="text-neutral-500 text-sm mb-8">
-                  Fill out the form below and a consultant will be in touch within 24 hours.
+                  {form.subheading}
                 </p>
                 <ContactForm />
               </div>

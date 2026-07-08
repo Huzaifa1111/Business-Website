@@ -1,6 +1,15 @@
 import type { ContactInfo } from "@/lib/types";
 
 export const contactData: ContactInfo = {
+  hero: {
+    eyebrow: "Get In Touch",
+    heading: "Let's Start the Conversation",
+    subheading: "No sales pitch — just an honest discussion about your business. Our team responds within 24 hours.",
+  },
+  form: {
+    heading: "Send us a message",
+    subheading: "Fill out the form below and a consultant will be in touch within 24 hours.",
+  },
   address: {
     street: "1221 Avenue of the Americas, Suite 4200",
     city: "New York",

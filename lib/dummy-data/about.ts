@@ -1,6 +1,11 @@
 import type { AboutContent } from "@/lib/types";
 
 export const aboutData: AboutContent = {
+  hero: {
+    eyebrow: "Our Story",
+    heading: "Building Businesses That Last, Since 2009",
+    subheading: "We started as three people with a better idea about what great consulting should look like. Fifteen years later, we're still guided by the same principles.",
+  },
   overview: {
     heading: "Our Story",
     foundedYear: 2009,
