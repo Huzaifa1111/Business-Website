@@ -3,7 +3,7 @@ import dbConnect from "@/lib/mongodb";
 import { Service } from "@/lib/models/Service";
 import { getServerSession } from "next-auth/next";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, context: { params: Promise<{ id: string }> }) {
   const session = await getServerSession();
   if (!session) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -11,9 +11,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
   await dbConnect();
   try {
+    const { id } = await context.params;
     const body = await req.json();
-    const updatedService = await Service.findOneAndUpdate({ id: params.id }, body, { new: true });
-    
+    const updatedService = await Service.findOneAndUpdate({ id }, body, { new: true });
+
     if (!updatedService) {
       return NextResponse.json({ message: "Service not found" }, { status: 404 });
     }
@@ -24,7 +25,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, context: { params: Promise<{ id: string }> }) {
   const session = await getServerSession();
   if (!session) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -32,8 +33,9 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
   await dbConnect();
   try {
-    const deletedService = await Service.findOneAndDelete({ id: params.id });
-    
+    const { id } = await context.params;
+    const deletedService = await Service.findOneAndDelete({ id });
+
     if (!deletedService) {
       return NextResponse.json({ message: "Service not found" }, { status: 404 });
     }

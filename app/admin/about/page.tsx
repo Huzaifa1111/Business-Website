@@ -97,13 +97,49 @@ export default function AboutManagementPage() {
 
       <SectionCard title="Hero Section">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormGroup label="Eyebrow">
+          
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.hero.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("hero", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.hero.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("hero", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.hero.textColor || "#252118"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, hero: { ...p.hero, textColor: e.target.value } }) : null)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.hero.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, hero: { ...p.hero, accentColor: e.target.value } }) : null)} />
+          </FormGroup>
+        </div>
+      <FormGroup label="Eyebrow">
             <Input 
               value={data.hero.eyebrow} 
               onChange={(e) => setData(p => p ? ({ ...p, hero: { ...p.hero, eyebrow: e.target.value } }) : null)} 
             />
           </FormGroup>
-          <FormGroup label="Heading">
+          
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.hero.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("hero", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.hero.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("hero", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.hero.textColor || "#252118"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, hero: { ...p.hero, textColor: e.target.value } }) : null)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.hero.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, hero: { ...p.hero, accentColor: e.target.value } }) : null)} />
+          </FormGroup>
+        </div>
+      <FormGroup label="Heading">
             <Input 
               value={data.hero.heading} 
               onChange={(e) => setData(p => p ? ({ ...p, hero: { ...p.hero, heading: e.target.value } }) : null)} 
@@ -120,7 +156,25 @@ export default function AboutManagementPage() {
       </SectionCard>
 
       <SectionCard title="Company Overview">
-        <FormGroup label="Heading">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.overview.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("overview", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.overview.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("overview", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.overview.textColor || "#252118"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, overview: { ...p.overview, textColor: e.target.value } }) : null)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.overview.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, overview: { ...p.overview, accentColor: e.target.value } }) : null)} />
+          </FormGroup>
+        </div>
+      <FormGroup label="Heading">
           <Input 
             value={data.overview.heading} 
             onChange={(e) => setData(p => p ? ({ ...p, overview: { ...p.overview, heading: e.target.value } }) : null)} 
@@ -137,7 +191,25 @@ export default function AboutManagementPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SectionCard title="Mission">
-          <FormGroup label="Heading">
+          
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.mission.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("mission", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.mission.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("mission", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.mission.textColor || "#252118"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, mission: { ...p.mission, textColor: e.target.value } }) : null)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.mission.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, mission: { ...p.mission, accentColor: e.target.value } }) : null)} />
+          </FormGroup>
+        </div>
+      <FormGroup label="Heading">
             <Input 
               value={data.mission.heading} 
               onChange={(e) => setData(p => p ? ({ ...p, mission: { ...p.mission, heading: e.target.value } }) : null)} 
@@ -152,7 +224,25 @@ export default function AboutManagementPage() {
         </SectionCard>
 
         <SectionCard title="Vision">
-          <FormGroup label="Heading">
+          
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.vision.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("vision", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.vision.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("vision", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.vision.textColor || "#252118"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, vision: { ...p.vision, textColor: e.target.value } }) : null)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.vision.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, vision: { ...p.vision, accentColor: e.target.value } }) : null)} />
+          </FormGroup>
+        </div>
+      <FormGroup label="Heading">
             <Input 
               value={data.vision.heading} 
               onChange={(e) => setData(p => p ? ({ ...p, vision: { ...p.vision, heading: e.target.value } }) : null)} 
@@ -169,7 +259,25 @@ export default function AboutManagementPage() {
 
       <SectionCard title="Values (What We Stand For)">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormGroup label="Heading">
+          
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.values.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("values", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.values.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("values", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.values.textColor || "#252118"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, values: { ...p.values, textColor: e.target.value } }) : null)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.values.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => setData(p => p ? ({ ...p, values: { ...p.values, accentColor: e.target.value } }) : null)} />
+          </FormGroup>
+        </div>
+      <FormGroup label="Heading">
             <Input 
               value={data.values.heading} 
               onChange={(e) => setData(p => p ? ({ ...p, values: { ...p.values, heading: e.target.value } }) : null)} 

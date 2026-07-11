@@ -4,6 +4,20 @@ import { Home } from "@/lib/models/Home";
 import { getServerSession } from "next-auth/next";
 import { homeData } from "@/lib/dummy-data/home";
 
+function mergeWithDefaults<T>(value: T, defaults: T): T {
+  if (Array.isArray(value)) return value as T;
+  if (Array.isArray(defaults)) return defaults;
+  if (value && typeof value === "object" && defaults && typeof defaults === "object") {
+    const merged = { ...(defaults as Record<string, unknown>) };
+    for (const [key, nestedValue] of Object.entries(value as Record<string, unknown>)) {
+      const fallback = (defaults as Record<string, unknown>)[key];
+      merged[key] = mergeWithDefaults(nestedValue as T, fallback as T);
+    }
+    return merged as T;
+  }
+  return value ?? defaults;
+}
+
 export async function GET() {
   await dbConnect();
   try {
@@ -11,7 +25,7 @@ export async function GET() {
     if (!homeContent) {
       return NextResponse.json(homeData);
     }
-    return NextResponse.json(homeContent);
+    return NextResponse.json(mergeWithDefaults(homeContent, homeData));
   } catch (error) {
     return NextResponse.json({ message: "Error fetching home content" }, { status: 500 });
   }

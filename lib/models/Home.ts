@@ -9,6 +9,8 @@ const HeroSectionSchema = new Schema({
   secondaryCtaText: { type: String },
   secondaryCtaLink: { type: String },
   backgroundImageUrl: { type: String },
+  textColor: { type: String, default: "#252118" },
+  accentColor: { type: String, default: "#4f46e5" },
   badgeText: { type: String },
 });
 
@@ -16,6 +18,8 @@ const IntroSectionSchema = new Schema({
   isVisible: { type: Boolean, default: true },
   heading: { type: String, required: true },
   body: { type: String, required: true },
+  textColor: { type: String, default: "#252118" },
+  accentColor: { type: String, default: "#4f46e5" },
   statsItems: [{
     value: { type: String, required: true },
     label: { type: String, required: true },
@@ -32,6 +36,8 @@ const WhyChooseUsSectionSchema = new Schema({
   isVisible: { type: Boolean, default: true },
   heading: { type: String, required: true },
   subheading: { type: String, required: true },
+  textColor: { type: String, default: "#ffffff" },
+  accentColor: { type: String, default: "#4f46e5" },
   items: [WhyChooseUsItemSchema],
 });
 
@@ -42,6 +48,8 @@ const CtaSectionSchema = new Schema({
   buttonText: { type: String, required: true },
   buttonLink: { type: String, required: true },
   backgroundVariant: { type: String, enum: ["primary", "accent", "dark"], required: true },
+  textColor: { type: String, default: "#ffffff" },
+  accentColor: { type: String, default: "#4f46e5" },
 });
 
 const TestimonialSchema = new Schema({
@@ -58,6 +66,8 @@ const TestimonialsSectionSchema = new Schema({
   isVisible: { type: Boolean, default: true },
   heading: { type: String, required: true },
   subheading: { type: String, required: true },
+  textColor: { type: String, default: "#252118" },
+  accentColor: { type: String, default: "#4f46e5" },
   items: [TestimonialSchema],
 });
 

@@ -17,9 +17,9 @@ export function SectionCard({ title, description, children, headerAction }: { ti
   );
 }
 
-export function FormGroup({ label, description, htmlFor, children }: { label: string; description?: string; htmlFor?: string; children: ReactNode }) {
+export function FormGroup({ label, description, htmlFor, children, className = "" }: { label: ReactNode; description?: string; htmlFor?: string; children: ReactNode; className?: string }) {
   return (
-    <div className="flex flex-col gap-1.5 mb-5 last:mb-0">
+    <div className={`flex flex-col gap-1.5 mb-5 last:mb-0 ${className}`}>
       <label htmlFor={htmlFor} className="text-sm font-semibold text-neutral-700">
         {label}
       </label>

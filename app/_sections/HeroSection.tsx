@@ -9,12 +9,35 @@ interface Props {
 }
 
 export function HeroSection({ data }: Props) {
+  const heroBackgroundImage = data.backgroundImageUrl?.trim();
+  const textColor = data.textColor || "#252118";
+  const accentColor = data.accentColor || "#4f46e5";
+
   return (
     <section
       aria-label="Hero"
       className="relative overflow-hidden bg-white"
       style={{ minHeight: "calc(100vh - 4rem)" }}
     >
+      {heroBackgroundImage && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-55"
+            style={{ backgroundImage: `url(${heroBackgroundImage})` }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.62), rgba(255,255,255,0.78))",
+            }}
+          />
+        </div>
+      )}
+
       {/* Background gradient mesh */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -25,7 +48,7 @@ export function HeroSection({ data }: Props) {
           className="absolute -top-32 -right-40 w-[700px] h-[700px] rounded-full opacity-20"
           style={{
             background:
-              "radial-gradient(circle, var(--color-primary-400) 0%, transparent 70%)",
+              `radial-gradient(circle, ${accentColor} 0%, transparent 70%)`,
           }}
         />
         {/* Accent blob */}
@@ -33,7 +56,7 @@ export function HeroSection({ data }: Props) {
           className="absolute top-1/2 -left-48 w-[500px] h-[500px] rounded-full opacity-10"
           style={{
             background:
-              "radial-gradient(circle, var(--color-accent-400) 0%, transparent 70%)",
+              `radial-gradient(circle, ${textColor} 0%, transparent 70%)`,
           }}
         />
         {/* Grid pattern */}
@@ -50,7 +73,10 @@ export function HeroSection({ data }: Props) {
 
       <Container className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-20 lg:py-28">
         {/* Left — text content */}
-        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+        <div
+          className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left"
+          style={{ color: textColor }}
+        >
           {data.badgeText && (
             <Badge variant="primary" className="mb-6 animate-[fadeSlideDown_0.5s_ease_forwards]">
               <span
@@ -62,15 +88,14 @@ export function HeroSection({ data }: Props) {
           )}
 
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-neutral-900 leading-tight mb-6"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
+            style={{ fontFamily: "var(--font-display)", color: textColor }}
           >
-            {/* Split headline for gradient accent on last word */}
-            {data.headline.split(" ").slice(0, -1).join(" ")}{" "}
-            <span className="text-gradient">{data.headline.split(" ").slice(-1)[0]}</span>
+            {data.headline.split(" ").slice(0, -1).join(" ")} {" "}
+            <span style={{ color: accentColor }}>{data.headline.split(" ").slice(-1)[0]}</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed max-w-xl mb-8">
+          <p className="text-lg sm:text-xl leading-relaxed max-w-xl mb-8" style={{ color: textColor }}>
             {data.subheadline}
           </p>
 
@@ -110,7 +135,7 @@ export function HeroSection({ data }: Props) {
 
         {/* Right — abstract hero illustration */}
         <div className="flex-1 flex items-center justify-center w-full max-w-lg lg:max-w-none">
-          <HeroIllustration />
+          <HeroIllustration accentColor={accentColor} textColor={textColor} />
         </div>
       </Container>
 
@@ -139,7 +164,7 @@ export function HeroSection({ data }: Props) {
 }
 
 /** Pure SVG/CSS abstract illustration — no external image dependency */
-function HeroIllustration() {
+function HeroIllustration({ accentColor, textColor }: { accentColor: string; textColor: string }) {
   return (
     <div
       className="relative w-full aspect-square max-w-sm"
@@ -149,7 +174,7 @@ function HeroIllustration() {
       <div
         className="absolute inset-0 rounded-full opacity-20"
         style={{
-          background: "radial-gradient(circle, var(--color-primary-400) 0%, transparent 65%)",
+          background: `radial-gradient(circle, ${accentColor} 0%, transparent 65%)`,
         }}
       />
 
@@ -157,7 +182,7 @@ function HeroIllustration() {
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-44 h-52 rounded-3xl shadow-hover"
         style={{
-          background: "linear-gradient(145deg, var(--color-primary-600), var(--color-primary-800))",
+          background: `linear-gradient(145deg, ${accentColor}, var(--color-primary-800))`,
           animation: "float 6s ease-in-out infinite",
         }}
       >
@@ -171,7 +196,7 @@ function HeroIllustration() {
                 height: `${h * 0.6}px`,
                 background:
                   i === 4
-                    ? "var(--color-accent-400)"
+                    ? accentColor
                     : "rgba(255,255,255,0.3)",
                 opacity: 0.8 + i * 0.04,
               }}
@@ -205,15 +230,15 @@ function HeroIllustration() {
         style={{ animation: "floatSlow 7s ease-in-out infinite 0.5s" }}
       >
         <p className="text-xs text-neutral-500 mb-0.5">Years of Experience</p>
-        <p className="text-base font-bold text-accent-600">15+</p>
+        <p className="text-base font-bold" style={{ color: accentColor }}>15+</p>
       </div>
 
       {/* Accent dot decorations */}
       {[
-        { top: "8%", left: "12%", size: 12, color: "var(--color-accent-400)" },
+        { top: "8%", left: "12%", size: 12, color: accentColor },
         { top: "20%", right: "6%", size: 8, color: "var(--color-primary-300)" },
         { bottom: "6%", right: "18%", size: 10, color: "var(--color-primary-400)" },
-        { bottom: "22%", left: "8%", size: 6, color: "var(--color-accent-300)" },
+        { bottom: "22%", left: "8%", size: 6, color: accentColor },
       ].map((dot, i) => (
         <div
           key={i}

@@ -10,6 +10,9 @@ export const homeData: HomeContent = {
     primaryCtaLink: "/contact",
     secondaryCtaText: "Explore Our Services",
     secondaryCtaLink: "/services",
+    backgroundImageUrl: "",
+    textColor: "#252118",
+    accentColor: "#4f46e5",
     badgeText: "Trusted by 200+ Companies",
   },
 
@@ -17,6 +20,8 @@ export const homeData: HomeContent = {
     isVisible: true,
     heading: "A Partner You Can Rely On",
     body: "Since 2009, Apex Consulting Group has helped mid-market businesses across North America navigate complex challenges and capitalise on emerging opportunities. Our multidisciplinary team combines deep industry knowledge with a pragmatic, data-driven approach — so every recommendation we make is grounded in your specific context, not generic frameworks.",
+    textColor: "#252118",
+    accentColor: "#4f46e5",
     statsItems: [
       { value: "15+", label: "Years in business" },
       { value: "200+", label: "Clients served" },
@@ -30,6 +35,8 @@ export const homeData: HomeContent = {
     heading: "Why Companies Choose Apex",
     subheading:
       "We don't believe in off-the-shelf solutions. Every engagement is built around your unique challenges, goals, and culture.",
+    textColor: "#ffffff",
+    accentColor: "#4f46e5",
     items: [
       {
         icon: "🎯",
@@ -78,6 +85,8 @@ export const homeData: HomeContent = {
     buttonText: "Book Your Strategy Call",
     buttonLink: "/contact",
     backgroundVariant: "primary",
+    textColor: "#ffffff",
+    accentColor: "#4f46e5",
   },
 
   testimonials: {
@@ -85,6 +94,8 @@ export const homeData: HomeContent = {
     heading: "What Our Clients Say",
     subheading:
       "Don't take our word for it — here's what the leaders we've partnered with have to say.",
+    textColor: "#252118",
+    accentColor: "#4f46e5",
     items: [
       {
         id: "t1",

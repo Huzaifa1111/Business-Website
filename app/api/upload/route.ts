@@ -2,11 +2,26 @@ import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import { getServerSession } from "next-auth/next";
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+const cloudinaryEnabled = Boolean(
+  process.env.CLOUDINARY_CLOUD_NAME &&
+  process.env.CLOUDINARY_API_KEY &&
+  process.env.CLOUDINARY_API_SECRET
+);
+
+if (cloudinaryEnabled) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
+
+async function convertToDataUrl(file: File) {
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  const mimeType = file.type || "image/jpeg";
+  return `data:${mimeType};base64,${buffer.toString("base64")}`;
+}
 
 export async function POST(req: Request) {
   const session = await getServerSession();
@@ -20,6 +35,11 @@ export async function POST(req: Request) {
 
     if (!file) {
       return NextResponse.json({ message: "No file provided" }, { status: 400 });
+    }
+
+    if (!cloudinaryEnabled) {
+      const dataUrl = await convertToDataUrl(file);
+      return NextResponse.json({ url: dataUrl, fallback: true });
     }
 
     const arrayBuffer = await file.arrayBuffer();
@@ -38,6 +58,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ url: (uploadResult as any).secure_url });
   } catch (error) {
-    return NextResponse.json({ message: "Error uploading image" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Error uploading image";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

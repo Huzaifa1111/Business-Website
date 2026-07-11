@@ -30,6 +30,8 @@ export interface HeroSection {
   secondaryCtaText?: string;
   secondaryCtaLink?: string;
   backgroundImageUrl?: string;
+  textColor?: string;
+  accentColor?: string;
   badgeText?: string;
 }
 
@@ -37,6 +39,8 @@ export interface IntroSection {
   isVisible: boolean;
   heading: string;
   body: string;
+  textColor?: string;
+  accentColor?: string;
   statsItems: Array<{ value: string; label: string }>;
 }
 
@@ -47,6 +51,8 @@ export interface WhyChooseUsItem {
 }
 
 export interface WhyChooseUsSection {
+  textColor?: string;
+  accentColor?: string;
   isVisible: boolean;
   heading: string;
   subheading: string;
@@ -54,6 +60,8 @@ export interface WhyChooseUsSection {
 }
 
 export interface CtaSection {
+  textColor?: string;
+  accentColor?: string;
   isVisible: boolean;
   heading: string;
   subheading: string;
@@ -73,6 +81,8 @@ export interface Testimonial {
 }
 
 export interface TestimonialsSection {
+  textColor?: string;
+  accentColor?: string;
   isVisible: boolean;
   heading: string;
   subheading: string;
@@ -92,6 +102,8 @@ export interface HomeContent {
 // ─────────────────────────────────────────────
 
 export interface OverviewSection {
+  textColor?: string;
+  accentColor?: string;
   heading: string;
   body: string;
   imageUrl?: string;
@@ -99,11 +111,15 @@ export interface OverviewSection {
 }
 
 export interface MissionSection {
+  textColor?: string;
+  accentColor?: string;
   heading: string;
   statement: string;
 }
 
 export interface VisionSection {
+  textColor?: string;
+  accentColor?: string;
   heading: string;
   statement: string;
 }
@@ -115,6 +131,8 @@ export interface ValueItem {
 }
 
 export interface ValuesSection {
+  textColor?: string;
+  accentColor?: string;
   heading: string;
   subheading: string;
   items: ValueItem[];
@@ -131,6 +149,8 @@ export interface TeamMember {
 }
 
 export interface AboutHeroSection {
+  textColor?: string;
+  accentColor?: string;
   eyebrow: string;
   heading: string;
   subheading: string;
@@ -162,6 +182,8 @@ export interface Service {
 }
 
 export interface ServicesHeroSection {
+  textColor?: string;
+  accentColor?: string;
   eyebrow: string;
   heading: string;
   subheading: string;
@@ -174,6 +196,8 @@ export interface ProcessStep {
 }
 
 export interface ServicesProcessSection {
+  textColor?: string;
+  accentColor?: string;
   eyebrow: string;
   heading: string;
   subheading: string;
@@ -181,6 +205,8 @@ export interface ServicesProcessSection {
 }
 
 export interface ServicesCtaSection {
+  textColor?: string;
+  accentColor?: string;
   heading: string;
   subheading: string;
   primaryButtonText: string;
@@ -218,12 +244,16 @@ export interface SocialLinks {
 }
 
 export interface ContactHeroSection {
+  textColor?: string;
+  accentColor?: string;
   eyebrow: string;
   heading: string;
   subheading: string;
 }
 
 export interface ContactFormSection {
+  textColor?: string;
+  accentColor?: string;
   heading: string;
   subheading: string;
 }
@@ -244,3 +274,4 @@ export interface ContactInfo {
   mapEmbedUrl: string;
   socialLinks: SocialLinks;
 }
+

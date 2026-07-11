@@ -8,10 +8,14 @@ interface Props {
 }
 
 export function IntroSection({ data }: Props) {
+  const textColor = data.textColor || "#252118";
+  const accentColor = data.accentColor || "#4f46e5";
+
   return (
     <section
       aria-labelledby="intro-heading"
       className="section-padding bg-neutral-50 relative overflow-hidden"
+      style={{ color: textColor }}
     >
       {/* Subtle background accent */}
       <div
@@ -19,7 +23,7 @@ export function IntroSection({ data }: Props) {
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse at 80% 50%, rgba(99,102,241,0.04) 0%, transparent 70%)",
+            `radial-gradient(ellipse at 80% 50%, ${accentColor}1A 0%, transparent 70%)`,
         }}
       />
 
@@ -36,7 +40,7 @@ export function IntroSection({ data }: Props) {
               />
             </Reveal>
             <Reveal delay={100} direction="left">
-              <p className="mt-6 text-neutral-600 leading-relaxed text-lg">
+              <p className="mt-6 leading-relaxed text-lg" style={{ color: textColor, opacity: 0.8 }}>
                 {data.body}
               </p>
             </Reveal>
@@ -51,12 +55,15 @@ export function IntroSection({ data }: Props) {
                   className="bg-white rounded-2xl p-6 shadow-card border border-neutral-100 flex flex-col gap-1 card-hover"
                 >
                   <span
-                    className="text-4xl font-bold text-gradient"
-                    style={{ fontFamily: "var(--font-display)" }}
+                    className="text-4xl font-bold bg-clip-text text-transparent"
+                    style={{ 
+                      fontFamily: "var(--font-display)", 
+                      backgroundImage: `linear-gradient(to right, ${textColor}, ${accentColor})` 
+                    }}
                   >
                     {stat.value}
                   </span>
-                  <span className="text-sm text-neutral-500 font-medium leading-snug">
+                  <span className="text-sm font-medium leading-snug" style={{ color: textColor, opacity: 0.7 }}>
                     {stat.label}
                   </span>
                 </div>

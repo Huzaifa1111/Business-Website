@@ -52,15 +52,15 @@ export default function ContactManagementPage() {
     }
   };
 
-  const updateAddress = (field: keyof typeof data.address, val: string) => {
+  const updateAddress = (field: keyof NonNullable<ContactInfo["address"]>, val: string) => {
     setData((p) => (p ? { ...p, address: { ...p.address, [field]: val } } : null));
   };
 
-  const updateHours = (day: keyof typeof data.businessHours, val: string) => {
+  const updateHours = (day: keyof NonNullable<ContactInfo["businessHours"]>, val: string) => {
     setData((p) => (p ? { ...p, businessHours: { ...p.businessHours, [day]: val } } : null));
   };
 
-  const updateSocial = (platform: keyof typeof data.socialLinks, val: string) => {
+  const updateSocial = (platform: keyof NonNullable<ContactInfo["socialLinks"]>, val: string) => {
     setData((p) => (p ? { ...p, socialLinks: { ...p.socialLinks, [platform]: val } } : null));
   };
 

@@ -106,6 +106,14 @@ export default function HomeManagementPage() {
           <Textarea value={data.hero.subheadline} onChange={(e) => updateSection("hero", "subheadline", e.target.value)} />
         </FormGroup>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.hero.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("hero", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.hero.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("hero", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormGroup label="Primary CTA Text">
             <Input value={data.hero.primaryCtaText} onChange={(e) => updateSection("hero", "primaryCtaText", e.target.value)} />
           </FormGroup>
@@ -126,6 +134,14 @@ export default function HomeManagementPage() {
           />
         }
       >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.intro.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("intro", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.intro.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("intro", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
         <FormGroup label="Heading">
           <Input value={data.intro.heading} onChange={(e) => updateSection("intro", "heading", e.target.value)} />
         </FormGroup>
@@ -158,6 +174,14 @@ export default function HomeManagementPage() {
         }
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.whyChooseUs.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("whyChooseUs", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.whyChooseUs.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("whyChooseUs", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormGroup label="Heading">
             <Input value={data.whyChooseUs.heading} onChange={(e) => updateSection("whyChooseUs", "heading", e.target.value)} />
           </FormGroup>
@@ -178,6 +202,14 @@ export default function HomeManagementPage() {
           />
         }
       >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.cta.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("cta", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.cta.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("cta", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
         <FormGroup label="Heading">
           <Input value={data.cta.heading} onChange={(e) => updateSection("cta", "heading", e.target.value)} />
         </FormGroup>
@@ -192,6 +224,33 @@ export default function HomeManagementPage() {
             <Input value={data.cta.buttonLink} onChange={(e) => updateSection("cta", "buttonLink", e.target.value)} />
           </FormGroup>
         </div>
+      </SectionCard>
+
+      {/* Testimonials Section */}
+      <SectionCard
+        title="Testimonials Section"
+        headerAction={
+          <Toggle
+            checked={data.testimonials.isVisible}
+            onChange={(v) => updateSection("testimonials", "isVisible", v)}
+            label={data.testimonials.isVisible ? "Visible" : "Hidden"}
+          />
+        }
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormGroup label="Text Color">
+            <Input type="color" value={data.testimonials.textColor || "#252118"} className="h-11 p-1" onChange={(e) => updateSection("testimonials", "textColor", e.target.value)} />
+          </FormGroup>
+          <FormGroup label="Accent Color">
+            <Input type="color" value={data.testimonials.accentColor || "#4f46e5"} className="h-11 p-1" onChange={(e) => updateSection("testimonials", "accentColor", e.target.value)} />
+          </FormGroup>
+        </div>
+        <FormGroup label="Heading">
+          <Input value={data.testimonials.heading} onChange={(e) => updateSection("testimonials", "heading", e.target.value)} />
+        </FormGroup>
+        <FormGroup label="Subheading">
+          <Textarea value={data.testimonials.subheading} onChange={(e) => updateSection("testimonials", "subheading", e.target.value)} />
+        </FormGroup>
       </SectionCard>
       
       <div className="pb-10 flex justify-end">

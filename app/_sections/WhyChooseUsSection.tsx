@@ -11,11 +11,14 @@ export function WhyChooseUsSection({ data }: Props) {
   // Show max 4 items on home page — all 6 can live on a full features page
   const displayItems = data.items.slice(0, 4);
 
+  const textColor = data.textColor || "#ffffff";
+  const accentColor = data.accentColor || "#4f46e5";
+
   return (
     <section
       aria-labelledby="why-us-heading"
       className="section-padding relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, var(--color-primary-950) 0%, var(--color-primary-800) 100%)" }}
+      style={{ background: `linear-gradient(160deg, ${accentColor} 0%, var(--color-primary-800) 100%)` }}
     >
       {/* Decorative blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -25,7 +28,7 @@ export function WhyChooseUsSection({ data }: Props) {
         />
         <div
           className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, var(--color-accent-400) 0%, transparent 70%)" }}
+          style={{ background: `radial-gradient(circle, ${textColor} 0%, transparent 70%)` }}
         />
         <div className="absolute inset-0 bg-grid-pattern opacity-20" />
       </div>
@@ -37,7 +40,7 @@ export function WhyChooseUsSection({ data }: Props) {
             eyebrow="Why Apex"
             heading={data.heading}
             subheading={data.subheading}
-            className="[&_h2]:text-white [&_p]:text-primary-200 [&_span]:text-primary-300 [&_span.block]:bg-primary-400"
+            className="[&_h2]:text-white [&_p]:text-white/80 [&_span]:text-white/70"
           />
         </Reveal>
 
@@ -55,12 +58,12 @@ export function WhyChooseUsSection({ data }: Props) {
                 </div>
                 <div>
                   <h3
-                    className="text-lg font-bold text-white mb-2"
-                    style={{ fontFamily: "var(--font-display)" }}
+                    className="text-lg font-bold mb-2"
+                    style={{ fontFamily: "var(--font-display)", color: textColor }}
                   >
                     {item.title}
                   </h3>
-                  <p className="text-primary-200 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
                     {item.description}
                   </p>
                 </div>
